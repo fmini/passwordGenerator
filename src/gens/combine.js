@@ -2,32 +2,32 @@ const lowers = require('./lowers');
 const nums = require('./nums');
 const specials = require('./specials');
 const uppers = require('./uppers');
+const validate = require('./validate');
 
-/*
- ******* need to work on regex test for requirement compliance and a function for only selecting wanted types of characters
- */
 //randomly combine each of the character types
-function randCombine(length) {
+const randCombine = (length, lower, num, special, upper) => {
   //where length is from generatePW length
   let generatedPW = '';
   let char = '';
   for (i = 0; i < length; i++) {
     //randomly choose a character type to generate
     let type = ~~(Math.random() * 4);
-    if (type === 0) {
+    if (type === 0 && lower) {
       char = String.fromCharCode(lowers.randLower());
-    } else if (type === 1) {
+    } else if (type === 1 && num) {
       char = String.fromCharCode(nums.randNum());
-    } else if (type === 2) {
+    } else if (type === 2 && special) {
       char = String.fromCharCode(specials.randSpec());
-    } else {
+    } else if (type === 3 && upper) {
       char = String.fromCharCode(uppers.randUpper());
-    }
+    } else;
     generatedPW += char;
   }
+
+  validate(generatedPW, types);
   //show the output for testing
   console.log(generatedPW);
-}
+  console.log(generatedPW.length);
+};
 
-//hard coded length and call for testing
-randCombine(8);
+module.exports = randCombine;
