@@ -6,7 +6,6 @@ const validate = require('./validate');
 
 //randomly combine each of the character types
 const randCombine = (length, lower, num, special, upper) => {
-  //where length is from generatePW length
   let generatedPW = '';
   let char = '';
   for (i = 0; i < length; i++) {
@@ -24,7 +23,7 @@ const randCombine = (length, lower, num, special, upper) => {
     generatedPW += char;
   }
 
-  validate(generatedPW, types);
+  validate(generatedPW, types, redo);
   //show the output for testing
   console.log(generatedPW);
   console.log(generatedPW.length);

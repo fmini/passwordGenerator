@@ -1,28 +1,34 @@
-const PW = require('./combine');
-const types = require('../index');
+const combine = require('./combine');
+const index = require('../index');
 const lowerReg = /[a-z]/;
 const numReg = /\d/;
 const specReg = /[!#$%&*+?@^|]/; // shows true with numbers...
 const upperReg = /[A-Z]/;
 
-console.log(types);
-
-const validate = (PW, types) => {
-  //console.log(types, typeof types);
+const validate = (PW, types, redo) => {
+  var failed = ''; // ===== will not allow failed out of if statements as let
   if (types.includes('l')) {
-    if (!lowerReg.test(PW)) console.log('No lowers');
+    if (!lowerReg.test(PW)) {
+      failed = 'No lowers';
+    }
   }
   if (types.includes('n')) {
-    if (!numReg.test(PW)) console.log('No numbers');
+    if (!numReg.test(PW)) {
+      failed = 'No numbers';
+    }
   }
   if (types.includes('s')) {
-    if (!specReg.test(PW)) console.log('No specials');
+    if (!specReg.test(PW)) {
+      failed = 'No specials';
+    }
   }
   if (types.includes('u')) {
-    if (!upperReg.test(PW)) console.log('No uppers');
+    if (!upperReg.test(PW)) {
+      failed = 'No uppers';
+    }
   }
+  console.log(failed); // ==== need to rerun generatePW here
 };
-console.log(PW);
 
 module.exports = validate;
 
