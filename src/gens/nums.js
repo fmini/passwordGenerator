@@ -3,4 +3,4 @@ const randNum = () => {
   return ~~(Math.random() * 10) + 48;
 };
 
-module.exports.randNum = randNum;
+module.exports = randNum;

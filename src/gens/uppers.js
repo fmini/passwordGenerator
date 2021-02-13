@@ -3,4 +3,4 @@ const randUpper = () => {
   return ~~(Math.random() * 26) + 65;
 };
 
-module.exports.randUpper = randUpper;
+module.exports = randUpper;

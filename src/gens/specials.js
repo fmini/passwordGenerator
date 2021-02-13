@@ -6,5 +6,4 @@ const randSpec = () => {
   return specials[~~(Math.random() * specials.length)];
 };
 
-module.exports.randSpec = randSpec;
-
+module.exports = randSpec;

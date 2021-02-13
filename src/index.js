@@ -1,17 +1,34 @@
 const combine = require('./gens/combine');
+const validate = require('./gens/validate');
+
+const charPoolGlobal = {
+  lowers: true,
+  uppers: false,
+  specials: true,
+  nums: true,
+};
 
 // main function that will call the randomizer
 
-const generatePW = (length, lower, num, special, upper) => {
-  redo = Array.from(arguments); // ===== saves original arguments provided to generatePW for eventual redo call if validation fails, however cannot get generatePW to run again because it is undefined
-  types = []; // ===== not defined as let const or var
-  if (lower) types.push('l');
-  if (num) types.push('n');
-  if (special) types.push('s');
-  if (upper) types.push('u');
-  combine(length, lower, num, special, upper);
+const generatePW = function (length, charPool) {
+  const genFuncs = [];
+  const types = [];
+  for (const [key, value] of Object.entries(charPool)) {
+    if (value) {
+      genFunc = require(`./gens/${key}`);
+      types.push(key);
+      genFuncs.push(genFunc);
+    }
+  }
+  let generatedPW = combine(length, genFuncs);
+
+  while (!validate(generatedPW, types)) {
+    console.log('failed');
+    generatedPW = combine(length, genFuncs);
+  }
+  console.log(generatedPW);
 };
 
-generatePW(8, true, true, true, true);
+generatePW(5, charPoolGlobal);
 
-module.exports.generatePW = generatePW;
+module.exports = { generatePW };
